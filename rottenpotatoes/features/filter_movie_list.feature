@@ -20,18 +20,17 @@ Background: movies have been added to database
   | Chicken Run             | G      | 21-Jun-2000  |
 
   And  I am on the RottenPotatoes home page
-  Then 10 seed movies should exist
 
 Scenario: restrict to movies with 'PG' or 'R' ratings
-  
   # enter step(s) to check the 'PG' and 'R' checkboxes
   When I check the following ratings: PG, R
   # enter step(s) to uncheck all other checkboxes
-  And I uncheck the following ratings: G, PG-13
+  And I uncheck the following ratings: PG-13, G
   # enter step to "submit" the search form on the homepage
   And I press "Refresh"
+  # step to check that after refresh we are on homepage
+  Then I should be on the home page
   # enter step(s) to ensure that PG and R movies are visible
-  Then I am on the RottenPotatoes home page
   And I should see "The Terminator"
   And I should see "When Harry Met Sally"
   And I should see "Amelie"
@@ -46,7 +45,7 @@ Scenario: restrict to movies with 'PG' or 'R' ratings
 
 Scenario: all ratings selected
   # see assignment
-  When I check the following ratings: G, PG, PG-13, R 
+  When I check the following ratings: PG, R, PG-13, G
   And I press "Refresh"
-  Then I am on the RottenPotatoes home page
+  Then I should be on the home page
   And I should see all the movies
